@@ -7,7 +7,11 @@
 {
   imports =
       [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hosts/pix/hardware-configuration.nix
+      ./hosts/pix/hardware-configuration.nix
+      ./hosts/pix/local-net.nix
+    # The user module import (if you added it)
+      ./modules/users/pixos.nix
     ];
   nixpkgs.config.allowUnfree = true;
 
