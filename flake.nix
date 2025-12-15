@@ -1,0 +1,23 @@
+{
+  description = "pixOS - Proprietary-Inclined, Community-Managed Distro";
+
+  inputs = {
+    # The engine: NixOS Unstable (Rolling release for latest drivers)
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
+
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations = {
+      
+      # This name MUST match networking.hostName in configuration.nix
+      pixos-core = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          ./hardware-configuration.nix
+        ];
+      };
+      
+    };
+  };
+}
