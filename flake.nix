@@ -12,7 +12,7 @@
     nixosConfigurations = {
       
       # This name MUST match networking.hostName in configuration.nix
-      pix = lib.nixosSystem {
+      pix = nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
