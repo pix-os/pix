@@ -16,7 +16,30 @@
   nixpkgs.config.allowUnfree = true;
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
+ #DEFAULT BOOT LOADER CONFIG SETTINGS (Below)  
+#  boot.loader.grub.enable = true;
+
+################## TMP VIM ENJOYER SETTINGS #############
+
+# --- Add this block to your configuration.nix ---
+
+# Enable GRUB if it's not already
+boot.loader.grub.enable = true;
+
+# 1. Enable serial output for the GRUB menu itself
+boot.loader.grub.extraConfig = ''
+  serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1
+  terminal_input serial
+  terminal_output serial
+'';
+
+# 2. Tell the Linux kernel to send console output to the serial port (ttyS0)
+boot.kernelParams = [ "console=ttyS0,115200" "console=tty0" ];
+
+# -----------------------------------------------
+
+################## END TMP VIM ENJOYER SETTINGS  ##################
+
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
