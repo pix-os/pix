@@ -1,0 +1,8 @@
+# Nix/System files to ignore
+result/
+.direnv/
+.envrc
+
+# Private Host Data
+# These files contain passwords, private keys, or static IPs and MUST NOT be public.
+hosts/pix/local-net.nix
