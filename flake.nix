@@ -6,7 +6,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs:
+	with nixpkgs.lib;  {
+
     nixosConfigurations = {
       
       # This name MUST match networking.hostName in configuration.nix
