@@ -10,7 +10,7 @@
     nixosConfigurations = {
       
       # This name MUST match networking.hostName in configuration.nix
-      pixos-core = nixpkgs.lib.nixosSystem {
+      pix = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
