@@ -5,14 +5,21 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-      [ # Include the results of the hardware scan.
+imports =
+    [ 
+      # Hardware Scan
       ./hosts/pix/hardware-configuration.nix
-      ./hosts/pix/hardware-configuration.nix
-      ./hosts/pix/local-net.nix
-    # The user module import (if you added it)
+      
+      # User Logic
       ./modules/users/pixos.nix
-    ];
+    ]
+
+# 3. PRIVATE NETWORK INJECTION (The "Impure" Hook)
+    # This checks if the file exists on the disk. If yes, it imports it.
+    # If no (for public users), it skips it.
+    ++ (lib.optional (builtins.pathExists /etc/nixos/local-net.nix) /etc/nixos/local-net.nix);
+
+# ALLOW (P) Unfree
   nixpkgs.config.allowUnfree = true;
 
   # Use the GRUB 2 boot loader.
@@ -103,7 +110,6 @@ boot.kernelParams = [ "console=ttyS0,115200" "console=tty0" ];
   users.users.pixos = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ tree ];
     initialPassword = "pixos";  # <--- ADD THIS LINE
   };
 
